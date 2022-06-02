@@ -1,0 +1,19 @@
+<link rel="stylesheet" href="login.component.css">
+<div class="container" >
+  <h2>Oturum Aç</h2>
+  <mat-form-field appearance="outline" style="width: 50%;">
+    <mat-label>Kullanıcı Adı</mat-label>
+    <input matInput type="text" placeholder="Kullanıcı Adı" #kadi>
+  </mat-form-field>
+  <p>&nbsp;</p>
+  <mat-form-field appearance="outline" style="width: 50%;">
+    <mat-label>Parola</mat-label>
+    <input matInput type="text" placeholder="password" #parola>
+  </mat-form-field>
+  <p>&nbsp;</p>
+  <button mat-raised-button color="primary" (click)="OturumAc(kadi.value,parola.value)">Oturum Aç</button><p>&nbsp;</p><p>&nbsp;</p>
+  <li><a href="uye/anasayfa">Uye Girişi</a></li>
+  
+  
+  
+</div>

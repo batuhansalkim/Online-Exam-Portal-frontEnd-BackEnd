@@ -1,0 +1,75 @@
+<link rel="stylesheet" href="admin-soru.component.css">
+<ul>
+<li><a href="admin/anasayfa">Ana Sayfa</a></li>
+<li><a href="admin/ogrenciler">Öğrenciler</a></li>
+<li><a href="admin/dersler">Dersler</a></li>
+<li><a href="admin/soruhazirla">Soru Hazırla</a></li>
+</ul>
+<p>&nbsp;</p><p>&nbsp;</p>
+<div class="container">
+    <p>&nbsp;</p>
+    <h2>Sorular</h2>
+    <p>&nbsp;</p>
+    <button mat-fab  matTooltip="Soru Ekle" color="primary" (click)="Ekle()">
+        <mat-icon aria-label="label">add</mat-icon>
+    </button>
+    <p>&nbsp;</p>
+
+    <mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
+        <ng-container matColumnDef="SoruId">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>Soru Numarası
+            </mat-header-cell>
+            <mat-cell *matCellDef="let kayit">{{kayit.SoruId}}
+            </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="soru1">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>Soru
+            </mat-header-cell>
+            <mat-cell *matCellDef="let kayit">{{kayit.soru1}}
+            </mat-cell>
+        </ng-container>
+        <!-- <ng-container matColumnDef="uyeKadi">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>Soruyu Hazırlayan
+            </mat-header-cell>
+            <mat-cell *matCellDef="let kayit">{{kayit.kadi}}
+            </mat-cell>
+        </ng-container> -->
+        <ng-container matColumnDef="UyeId">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>Admin Numarası
+            </mat-header-cell>
+            <mat-cell *matCellDef="let kayit">{{kayit.UyeId}}
+            </mat-cell>
+        </ng-container>
+
+        <!-- <ng-container matColumnDef="UyeId">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>Uye Id
+            </mat-header-cell>
+            <mat-cell *matCellDef="let kayit">{{kayit.UyeId}}
+            </mat-cell>
+        </ng-container> -->
+
+        <ng-container matColumnDef="detay">
+            <mat-header-cell *matHeaderCellDef >İşlemler
+            </mat-header-cell>
+            <mat-cell *matCellDef="let kayit">
+                <button mat-icon-button color="primary" matTooltip="Soru Detaylar" (click)="Detay(kayit)">
+                    <mat-icon aria-label="label">search</mat-icon>
+                </button>
+                <button mat-icon-button color="primary" matTooltip="Soru Düzenle" (click)="Duzenle(kayit)">
+                    <mat-icon aria-label="label">edit</mat-icon>
+                </button>  
+                <button mat-icon-button color="warn" matTooltip="Soru Sil" (click)="Sil(kayit)">
+                    <mat-icon aria-label="label">delete</mat-icon>
+                </button>                  
+            </mat-cell>
+        </ng-container>
+        
+        
+        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+        <mat-row *matRowDef="let row; columns:displayedColumns"></mat-row>
+    </mat-table>
+    <mat-paginator [pageSizeOptions]="[5,10,25,100]" showFirstLastButtons="">
+
+    </mat-paginator>
+</div>
+

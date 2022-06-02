@@ -1,0 +1,82 @@
+<link rel="stylesheet" href="admin-ogrenci.component.css">
+<ul>
+<li><a href="admin/anasayfa">Ana Sayfa</a></li>
+<li><a href="admin/ogrenciler">Öğrenciler</a></li>
+<li><a href="admin/dersler">Dersler</a></li>
+<li><a href="admin/soruhazirla">Soru Hazırla</a></li>
+</ul>
+<p>&nbsp;</p><p>&nbsp;</p>
+<div class="container">
+    <p>&nbsp;</p>
+    <h2>Öğrenciler</h2>
+    
+    <p>&nbsp;</p>
+    <button mat-fab  matTooltip="Öğrenci Ekle" color="primary" (click)="Ekle()">
+        <mat-icon aria-label="label">add</mat-icon>
+    </button>
+    <p>&nbsp;</p>
+    <mat-form-field>
+        <input matInput placeholder="Aranacak Bir Değer Giriniz" >
+    </mat-form-field>
+
+    <p>&nbsp;</p>
+    <mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
+        <ng-container matColumnDef="ogrNo">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>Öğrenci Numarası
+            </mat-header-cell>
+            <mat-cell *matCellDef="let kayit">{{kayit.ogrNo}}
+            </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="ogrAdSoyad">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>Öğrenci Ad-Soyad
+            </mat-header-cell>
+            <mat-cell *matCellDef="let kayit">{{kayit.ogrAdSoyad}}
+            </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="ogrDogTarih">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>Öğrenci Doğum Tarihi
+            </mat-header-cell>
+            <mat-cell *matCellDef="let kayit">{{kayit.ogrDogTarih}}
+            </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="ogrDersSayisi">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>Öğrencinin Aldığı Ders Sayısı
+            </mat-header-cell>
+            <mat-cell *matCellDef="let kayit">{{kayit.ogrDersSayisi}}
+            </mat-cell>
+        </ng-container>
+
+        <!-- <ng-container matColumnDef="UyeId">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>Uye Id
+            </mat-header-cell>
+            <mat-cell *matCellDef="let kayit">{{kayit.UyeId}}
+            </mat-cell>
+        </ng-container> -->
+
+        <ng-container matColumnDef="detay">
+            <mat-header-cell *matHeaderCellDef >İşlemler
+            </mat-header-cell>
+            <mat-cell *matCellDef="let kayit">
+
+                <button mat-icon-button color="primary" matTooltip="Dersleri Listele" [routerLink]="['/derslistele',kayit.ogrId]">
+                    <mat-icon aria-label="label" color="primary">article</mat-icon>
+                </button>
+
+                <button mat-icon-button color="primary" matTooltip="Öğrenci Düzenle" (click)="Duzenle(kayit)">
+                    <mat-icon aria-label="label">edit</mat-icon>
+                </button>  
+
+                <button mat-icon-button color="warn" matTooltip="Öğrenci Sil" (click)="Sil(kayit)">
+                    <mat-icon aria-label="label">delete</mat-icon>
+                </button>                  
+            </mat-cell>
+        </ng-container>
+        
+        
+        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+        <mat-row *matRowDef="let row; columns:displayedColumns"></mat-row>
+    </mat-table>
+    <mat-paginator [pageSizeOptions]="[5,10,25,100]" showFirstLastButtons="">
+
+    </mat-paginator>
+</div>

@@ -1,0 +1,49 @@
+<mat-toolbar color="primary" class="mat-elevation-z6">
+  <span>{{dialogBaslik}}</span>
+</mat-toolbar>
+<div class="container" *ngIf="islem!='detay'">
+  <form [formGroup]="frm">
+    
+    <mat-form-field appearance="outline">
+      <mat-label>Soru</mat-label>
+      <input matInput placeholder="Soruyu Yazınız" formControlName="soru1" required>
+    </mat-form-field >
+    <mat-form-field appearance="outline">
+      <mat-label>A Şıkını Yazınız</mat-label>
+      <input matInput placeholder="A Şıkını Yazınız" formControlName="oA" required>
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>B Şıkını Yazınız</mat-label>
+      <input matInput placeholder="B Şıkını Yazınız" formControlName="oB" required>
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>C Şıkını Yazınız</mat-label>
+      <input matInput placeholder="C Şıkını Yazınız" formControlName="oC" required>
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>D Şıkını Yazınız</mat-label>
+      <input matInput placeholder="D Şıkını Yazınız" formControlName="oD" required>
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>Doğru Cevabı Yazınız</mat-label>
+      <input matInput placeholder="Doğru Cevabı Yazınız" formControlName="ans" required>
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>Uye Id</mat-label>
+      <input matInput placeholder="Uye Id Numarası" formControlName="UyeId" required>
+    </mat-form-field>
+  </form>
+  <button mat-raised-button color="primary"(click)="dialogRef.close(frm.value)" [disabled]="frm.invalid">Kaydet</button>&nbsp;
+  <button mat-raised-button color="warn" (click)="dialogRef.close()">İptal</button>&nbsp;
+</div>
+
+
+
+<div class="container" *ngIf="islem=='detay'">
+  <h2><b>Soru : </b>{{yeniKayit.soru1}}</h2>
+  <h5><b>A : </b>{{yeniKayit.oA}}</h5>
+  <h5><b>B : </b>{{yeniKayit.oB}}</h5>
+  <h5><b>C : </b>{{yeniKayit.oC}}</h5>
+  <h5><b>D : </b>{{yeniKayit.oD}}</h5>
+  <h5><b>Cevap : </b>{{yeniKayit.ans}}</h5>
+</div>

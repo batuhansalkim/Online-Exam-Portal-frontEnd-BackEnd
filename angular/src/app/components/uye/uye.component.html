@@ -1,0 +1,56 @@
+<!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+<div class="container mt-5">
+  <li class="nav-item" style="background-color: black; color: white; width: 80px;"><a href="login" class="nav-link">Çıkış</a></li>
+  <div class="card">
+    <div class="d-flex justify-content-between p-3">
+      <div class="image">
+        <img src="https://img.icons8.com/color/96/000000/angularjs.png" width="90" alt="logo">
+      </div>
+      <div class="quiz-header">
+        <span style="font-style:italic">Merhaba Batuhan </span>
+        <h4 style="font-family: cursive;">Karışık Sorulardan Oluşan Test & Başarılar!</h4>
+        <h2 style="color: red;">DİKKAT</h2>
+        <h5>Sınav Bitmeden Çıkış Butonuna Basmayınız. Sınav İptal Olur.</h5>
+        
+      </div>
+    </div>
+    <div class="d-flex justify-content-between py-3">
+      <div class="question-remain">
+        <span style="font-style: italic;">Bu Test 10 Sorudan Oluşmaktadır.</span>
+      </div>
+    </div>
+    <div class="container-fluid"  *ngFor="let Soru of sorular">
+      <div class="modal-dialog">
+          <div class="modal-content">
+              <div class="modal-header">
+                  <h3>{{Soru.soru1}}</h3>
+                  <span *ngIf="Soru.soru1 == false"><i style="color: greenyellow;" class="fas fa-check-circle"></i></span>
+                  <span *ngIf="Soru.soru1 == true"><i style="color: red;" class="fas fa-times-circle"></i></span>
+                </div>
+                <h2 class="dogrucevap" *ngIf="Soru.ans">Cevap : {{Soru.ans}}</h2>
+              <div class="modal-body">
+                  <div class="col-xs-3 5"> </div>
+                  <div class="quiz" id="quiz" data-toggle="buttons">
+                    <label class="element-animation1 btn btn-lg btn-danger btn-block">
+                      <span class="btn-label"><i class="glyphicon glyphicon-chevron-right"></i></span> 
+                      <input [attr.disabled]="Soru.cevaplandi? '' : null" (click)="cevapla(Soru.,Soru.oA,Soru)" type="radio" name="q_answer" value="1"> {{soru.oA}} </label> 
+                      
+                      <label class="element-animation2 btn btn-lg btn-danger btn-block"><span class="btn-label"><i class="glyphicon glyphicon-chevron-right"></i></span> 
+                        <input [attr.disabled]="soru.cevaplandi? '' : null" (click)="cevapla(soru.ans,soru.oB,soru)" type="radio" name="q_answer" value="2">{{soru.oB}}</label> 
+                        
+                        <label class="element-animation3 btn btn-lg btn-danger btn-block"><span class="btn-label"><i class="glyphicon glyphicon-chevron-right"></i></span> 
+                          <input [attr.disabled]="soru.cevaplandi? '' : null" (click)="cevapla(soru.ans,soru.oC,soru)" type="radio" name="q_answer" value="3">{{soru.oC}}</label> 
+
+                          <label class="element-animation4 btn btn-lg btn-danger btn-block">
+                            <span class="btn-label"><i class="glyphicon glyphicon-chevron-right"></i></span>
+                             <input [attr.disabled]="soru.cevaplandi? '' : null" (click)="cevapla(soru.ans,soru.oD,soru)" type="radio" name="q_answer" value="4">{{soru.oD}} </label> </div>
+              </div>
+          </div>
+      </div>
+  </div>
+  <div *ngIf="sinavbitti">
+    <h2 style="color: rgb(0, 255, 76);">Doğru sayısı : {{dogrusayisi}}</h2>
+    <h2 style="color: rgb(255, 0, 0);">Yanlış sayısı : {{yanlissayisi}}</h2>
+  </div>
+  </div>
+</div> -->

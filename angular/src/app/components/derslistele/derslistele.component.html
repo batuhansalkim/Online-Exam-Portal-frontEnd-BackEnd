@@ -1,0 +1,55 @@
+<div class="container">
+  <h1>Ders Listesi</h1>
+  <h3><b>Öğrenci No : </b>{{secOgrenci?.ogrNo}}</h3>
+  <h3><b>Adı Soyadı : </b>{{secOgrenci?.ogrAdSoyad}}</h3>
+
+  <button mat-fab color="primary" matTooltip="Öğrenci Listesi" [routerLink]="['/admin/ogrenciler']">
+    <mat-icon aria-label="label">arrow_back</mat-icon>
+  </button>
+  <p>&nbsp;</p>
+  <mat-form-field appearance="outline" style="width: 50%;">
+    <mat-label>Ders Seçiniz</mat-label>
+    <mat-select placeholder="Ders Seçiniz" (selectionChange)="DersSec($event.value)" >
+      <mat-option [value]="'ders.dersId'" *ngFor="let ders of dersler">{{ders.dersAdi}} </mat-option>>
+    </mat-select>
+    
+  </mat-form-field>
+  <p>&nbsp;</p>
+  <button mat-fab color="primary" matTooltip="Ders Ekle" (click)="Kaydet()">
+    <mat-icon aria-label="label">add</mat-icon>
+  </button>
+
+  <mat-table [dataSource]="dataSource">
+    <!-- <ng-container matColumnDef="dersId">
+      <mat-header-cell *matHeaderCellDef> Ders Id Numarası</mat-header-cell>
+      <mat-cell *matCellDef="let kayit">{{kayit.dersBilgi.dersId}}</mat-cell>
+    </ng-container> -->
+    <ng-container matColumnDef="dersKodu">
+      <mat-header-cell *matHeaderCellDef> Ders Kodu</mat-header-cell>
+      <mat-cell *matCellDef="let kayit">{{kayit.dersBilgi.dersKodu}}</mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="dersAdi">
+      <mat-header-cell *matHeaderCellDef> Ders Adı</mat-header-cell>
+      <mat-cell *matCellDef="let kayit">{{kayit.dersBilgi.dersAdi}}</mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="dersKredi">
+      <mat-header-cell *matHeaderCellDef> Ders Kredi</mat-header-cell>
+      <mat-cell *matCellDef="let kayit">{{kayit.dersBilgi.dersKredi}}</mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="islemler">
+      <mat-header-cell *matHeaderCellDef> Ders islemler</mat-header-cell>
+      <mat-cell *matCellDef="let kayit">
+        <button mat-icon-button color="warn" matTooltip="Ders Kaydını Sil" (click)="Sil(kayit)">
+          <mat-icon aria-label="label">delete</mat-icon>
+        </button>
+      </mat-cell>
+    </ng-container>
+
+
+
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns:displayedColumns;"></mat-row>
+  </mat-table>
+
+
+</div>
