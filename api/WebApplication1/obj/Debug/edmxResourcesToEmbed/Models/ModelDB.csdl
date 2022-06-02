@@ -1,0 +1,135 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="DB02Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="DersiAlanOgr">
+    <Key>
+      <PropertyRef Name="ogrId" />
+    </Key>
+    <Property Name="ogrId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ogrNo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="ogrAdSoyad" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="ogrDogTarih" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="ogrFoto" Type="Binary" MaxLength="Max" FixedLength="false" />
+    <Property Name="UyeId" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Uye" Relationship="Self.FK_DersiAlanOgr_ToUye" FromRole="DersiAlanOgr" ToRole="Uye" />
+    <NavigationProperty Name="Kayit" Relationship="Self.FK_Kayit_ToDersiAlanOgr" FromRole="DersiAlanOgr" ToRole="Kayit" />
+  </EntityType>
+  <EntityType Name="Dersler">
+    <Key>
+      <PropertyRef Name="dersId" />
+    </Key>
+    <Property Name="dersId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="dersKodu" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="dersAdi" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="dersKredi" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="Kayit" Relationship="Self.FK_Kayit_ToDersler" FromRole="Dersler" ToRole="Kayit" />
+  </EntityType>
+  <EntityType Name="Kayit">
+    <Key>
+      <PropertyRef Name="kayitId" />
+    </Key>
+    <Property Name="kayitId" Type="Int32" Nullable="false" />
+    <Property Name="kayitDersiAlanOgrId" Type="Int32" Nullable="false" />
+    <Property Name="kayitDerslerId" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="DersiAlanOgr" Relationship="Self.FK_Kayit_ToDersiAlanOgr" FromRole="Kayit" ToRole="DersiAlanOgr" />
+    <NavigationProperty Name="Dersler" Relationship="Self.FK_Kayit_ToDersler" FromRole="Kayit" ToRole="Dersler" />
+  </EntityType>
+  <EntityType Name="Soru">
+    <Key>
+      <PropertyRef Name="SoruId" />
+    </Key>
+    <Property Name="SoruId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="soru1" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="oA" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="oB" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="oC" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="oD" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="ans" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="UyeId" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Uye" Relationship="Self.FK_Soru_ToUye" FromRole="Soru" ToRole="Uye" />
+  </EntityType>
+  <EntityType Name="Uye">
+    <Key>
+      <PropertyRef Name="UyeId" />
+    </Key>
+    <Property Name="UyeId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="KullaniciAdi" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Sifre" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="AdSoyad" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Foto" Type="Binary" MaxLength="Max" FixedLength="false" />
+    <Property Name="AdminUye" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="DersiAlanOgr" Relationship="Self.FK_DersiAlanOgr_ToUye" FromRole="Uye" ToRole="DersiAlanOgr" />
+    <NavigationProperty Name="Soru" Relationship="Self.FK_Soru_ToUye" FromRole="Uye" ToRole="Soru" />
+  </EntityType>
+  <Association Name="FK_DersiAlanOgr_ToUye">
+    <End Role="Uye" Type="Self.Uye" Multiplicity="1" />
+    <End Role="DersiAlanOgr" Type="Self.DersiAlanOgr" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Uye">
+        <PropertyRef Name="UyeId" />
+      </Principal>
+      <Dependent Role="DersiAlanOgr">
+        <PropertyRef Name="UyeId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Kayit_ToDersiAlanOgr">
+    <End Role="DersiAlanOgr" Type="Self.DersiAlanOgr" Multiplicity="1" />
+    <End Role="Kayit" Type="Self.Kayit" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="DersiAlanOgr">
+        <PropertyRef Name="ogrId" />
+      </Principal>
+      <Dependent Role="Kayit">
+        <PropertyRef Name="kayitDersiAlanOgrId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Kayit_ToDersler">
+    <End Role="Dersler" Type="Self.Dersler" Multiplicity="1" />
+    <End Role="Kayit" Type="Self.Kayit" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Dersler">
+        <PropertyRef Name="dersId" />
+      </Principal>
+      <Dependent Role="Kayit">
+        <PropertyRef Name="kayitDerslerId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Soru_ToUye">
+    <End Role="Uye" Type="Self.Uye" Multiplicity="1" />
+    <End Role="Soru" Type="Self.Soru" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Uye">
+        <PropertyRef Name="UyeId" />
+      </Principal>
+      <Dependent Role="Soru">
+        <PropertyRef Name="UyeId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="DB02Entities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="DersiAlanOgr" EntityType="Self.DersiAlanOgr" />
+    <EntitySet Name="Dersler" EntityType="Self.Dersler" />
+    <EntitySet Name="Kayit" EntityType="Self.Kayit" />
+    <EntitySet Name="Soru" EntityType="Self.Soru" />
+    <EntitySet Name="Uye" EntityType="Self.Uye" />
+    <AssociationSet Name="FK_DersiAlanOgr_ToUye" Association="Self.FK_DersiAlanOgr_ToUye">
+      <End Role="Uye" EntitySet="Uye" />
+      <End Role="DersiAlanOgr" EntitySet="DersiAlanOgr" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Kayit_ToDersiAlanOgr" Association="Self.FK_Kayit_ToDersiAlanOgr">
+      <End Role="DersiAlanOgr" EntitySet="DersiAlanOgr" />
+      <End Role="Kayit" EntitySet="Kayit" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Kayit_ToDersler" Association="Self.FK_Kayit_ToDersler">
+      <End Role="Dersler" EntitySet="Dersler" />
+      <End Role="Kayit" EntitySet="Kayit" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Soru_ToUye" Association="Self.FK_Soru_ToUye">
+      <End Role="Uye" EntitySet="Uye" />
+      <End Role="Soru" EntitySet="Soru" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

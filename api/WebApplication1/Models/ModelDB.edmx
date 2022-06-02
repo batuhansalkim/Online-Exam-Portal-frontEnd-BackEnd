@@ -1,0 +1,356 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="DB02Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="DersiAlanOgr">
+          <Key>
+            <PropertyRef Name="ogrId" />
+          </Key>
+          <Property Name="ogrId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ogrNo" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="ogrAdSoyad" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="ogrDogTarih" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="ogrFoto" Type="image" />
+          <Property Name="UyeId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Dersler">
+          <Key>
+            <PropertyRef Name="dersId" />
+          </Key>
+          <Property Name="dersId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="dersKodu" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="dersAdi" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="dersKredi" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Kayit">
+          <Key>
+            <PropertyRef Name="kayitId" />
+          </Key>
+          <Property Name="kayitId" Type="int" Nullable="false" />
+          <Property Name="kayitDersiAlanOgrId" Type="int" Nullable="false" />
+          <Property Name="kayitDerslerId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Soru">
+          <Key>
+            <PropertyRef Name="SoruId" />
+          </Key>
+          <Property Name="SoruId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="soru" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="oA" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="oB" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="oC" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="oD" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="ans" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="UyeId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Uye">
+          <Key>
+            <PropertyRef Name="UyeId" />
+          </Key>
+          <Property Name="UyeId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="KullaniciAdi" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Email" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Sifre" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="AdSoyad" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Foto" Type="image" />
+          <Property Name="AdminUye" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_DersiAlanOgr_ToUye">
+          <End Role="Uye" Type="Self.Uye" Multiplicity="1" />
+          <End Role="DersiAlanOgr" Type="Self.DersiAlanOgr" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Uye">
+              <PropertyRef Name="UyeId" />
+            </Principal>
+            <Dependent Role="DersiAlanOgr">
+              <PropertyRef Name="UyeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Kayit_ToDersiAlanOgr">
+          <End Role="DersiAlanOgr" Type="Self.DersiAlanOgr" Multiplicity="1" />
+          <End Role="Kayit" Type="Self.Kayit" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DersiAlanOgr">
+              <PropertyRef Name="ogrId" />
+            </Principal>
+            <Dependent Role="Kayit">
+              <PropertyRef Name="kayitDersiAlanOgrId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Kayit_ToDersler">
+          <End Role="Dersler" Type="Self.Dersler" Multiplicity="1" />
+          <End Role="Kayit" Type="Self.Kayit" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Dersler">
+              <PropertyRef Name="dersId" />
+            </Principal>
+            <Dependent Role="Kayit">
+              <PropertyRef Name="kayitDerslerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Soru_ToUye">
+          <End Role="Uye" Type="Self.Uye" Multiplicity="1" />
+          <End Role="Soru" Type="Self.Soru" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Uye">
+              <PropertyRef Name="UyeId" />
+            </Principal>
+            <Dependent Role="Soru">
+              <PropertyRef Name="UyeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="DB02ModelStoreContainer">
+          <EntitySet Name="DersiAlanOgr" EntityType="Self.DersiAlanOgr" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Dersler" EntityType="Self.Dersler" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Kayit" EntityType="Self.Kayit" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Soru" EntityType="Self.Soru" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Uye" EntityType="Self.Uye" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_DersiAlanOgr_ToUye" Association="Self.FK_DersiAlanOgr_ToUye">
+            <End Role="Uye" EntitySet="Uye" />
+            <End Role="DersiAlanOgr" EntitySet="DersiAlanOgr" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Kayit_ToDersiAlanOgr" Association="Self.FK_Kayit_ToDersiAlanOgr">
+            <End Role="DersiAlanOgr" EntitySet="DersiAlanOgr" />
+            <End Role="Kayit" EntitySet="Kayit" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Kayit_ToDersler" Association="Self.FK_Kayit_ToDersler">
+            <End Role="Dersler" EntitySet="Dersler" />
+            <End Role="Kayit" EntitySet="Kayit" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Soru_ToUye" Association="Self.FK_Soru_ToUye">
+            <End Role="Uye" EntitySet="Uye" />
+            <End Role="Soru" EntitySet="Soru" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="DB02Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="DersiAlanOgr">
+          <Key>
+            <PropertyRef Name="ogrId" />
+          </Key>
+          <Property Name="ogrId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ogrNo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ogrAdSoyad" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ogrDogTarih" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ogrFoto" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="UyeId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Uye" Relationship="Self.FK_DersiAlanOgr_ToUye" FromRole="DersiAlanOgr" ToRole="Uye" />
+          <NavigationProperty Name="Kayit" Relationship="Self.FK_Kayit_ToDersiAlanOgr" FromRole="DersiAlanOgr" ToRole="Kayit" />
+        </EntityType>
+        <EntityType Name="Dersler">
+          <Key>
+            <PropertyRef Name="dersId" />
+          </Key>
+          <Property Name="dersId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="dersKodu" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="dersAdi" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="dersKredi" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Kayit" Relationship="Self.FK_Kayit_ToDersler" FromRole="Dersler" ToRole="Kayit" />
+        </EntityType>
+        <EntityType Name="Kayit">
+          <Key>
+            <PropertyRef Name="kayitId" />
+          </Key>
+          <Property Name="kayitId" Type="Int32" Nullable="false" />
+          <Property Name="kayitDersiAlanOgrId" Type="Int32" Nullable="false" />
+          <Property Name="kayitDerslerId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="DersiAlanOgr" Relationship="Self.FK_Kayit_ToDersiAlanOgr" FromRole="Kayit" ToRole="DersiAlanOgr" />
+          <NavigationProperty Name="Dersler" Relationship="Self.FK_Kayit_ToDersler" FromRole="Kayit" ToRole="Dersler" />
+        </EntityType>
+        <EntityType Name="Soru">
+          <Key>
+            <PropertyRef Name="SoruId" />
+          </Key>
+          <Property Name="SoruId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="soru1" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="oA" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="oB" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="oC" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="oD" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ans" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="UyeId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Uye" Relationship="Self.FK_Soru_ToUye" FromRole="Soru" ToRole="Uye" />
+        </EntityType>
+        <EntityType Name="Uye">
+          <Key>
+            <PropertyRef Name="UyeId" />
+          </Key>
+          <Property Name="UyeId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="KullaniciAdi" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Sifre" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="AdSoyad" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Foto" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="AdminUye" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="DersiAlanOgr" Relationship="Self.FK_DersiAlanOgr_ToUye" FromRole="Uye" ToRole="DersiAlanOgr" />
+          <NavigationProperty Name="Soru" Relationship="Self.FK_Soru_ToUye" FromRole="Uye" ToRole="Soru" />
+        </EntityType>
+        <Association Name="FK_DersiAlanOgr_ToUye">
+          <End Role="Uye" Type="Self.Uye" Multiplicity="1" />
+          <End Role="DersiAlanOgr" Type="Self.DersiAlanOgr" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Uye">
+              <PropertyRef Name="UyeId" />
+            </Principal>
+            <Dependent Role="DersiAlanOgr">
+              <PropertyRef Name="UyeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Kayit_ToDersiAlanOgr">
+          <End Role="DersiAlanOgr" Type="Self.DersiAlanOgr" Multiplicity="1" />
+          <End Role="Kayit" Type="Self.Kayit" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DersiAlanOgr">
+              <PropertyRef Name="ogrId" />
+            </Principal>
+            <Dependent Role="Kayit">
+              <PropertyRef Name="kayitDersiAlanOgrId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Kayit_ToDersler">
+          <End Role="Dersler" Type="Self.Dersler" Multiplicity="1" />
+          <End Role="Kayit" Type="Self.Kayit" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Dersler">
+              <PropertyRef Name="dersId" />
+            </Principal>
+            <Dependent Role="Kayit">
+              <PropertyRef Name="kayitDerslerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Soru_ToUye">
+          <End Role="Uye" Type="Self.Uye" Multiplicity="1" />
+          <End Role="Soru" Type="Self.Soru" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Uye">
+              <PropertyRef Name="UyeId" />
+            </Principal>
+            <Dependent Role="Soru">
+              <PropertyRef Name="UyeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="DB02Entities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="DersiAlanOgr" EntityType="Self.DersiAlanOgr" />
+          <EntitySet Name="Dersler" EntityType="Self.Dersler" />
+          <EntitySet Name="Kayit" EntityType="Self.Kayit" />
+          <EntitySet Name="Soru" EntityType="Self.Soru" />
+          <EntitySet Name="Uye" EntityType="Self.Uye" />
+          <AssociationSet Name="FK_DersiAlanOgr_ToUye" Association="Self.FK_DersiAlanOgr_ToUye">
+            <End Role="Uye" EntitySet="Uye" />
+            <End Role="DersiAlanOgr" EntitySet="DersiAlanOgr" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Kayit_ToDersiAlanOgr" Association="Self.FK_Kayit_ToDersiAlanOgr">
+            <End Role="DersiAlanOgr" EntitySet="DersiAlanOgr" />
+            <End Role="Kayit" EntitySet="Kayit" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Kayit_ToDersler" Association="Self.FK_Kayit_ToDersler">
+            <End Role="Dersler" EntitySet="Dersler" />
+            <End Role="Kayit" EntitySet="Kayit" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Soru_ToUye" Association="Self.FK_Soru_ToUye">
+            <End Role="Uye" EntitySet="Uye" />
+            <End Role="Soru" EntitySet="Soru" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="DB02ModelStoreContainer" CdmEntityContainer="DB02Entities">
+          <EntitySetMapping Name="DersiAlanOgr">
+            <EntityTypeMapping TypeName="DB02Model.DersiAlanOgr">
+              <MappingFragment StoreEntitySet="DersiAlanOgr">
+                <ScalarProperty Name="ogrId" ColumnName="ogrId" />
+                <ScalarProperty Name="ogrNo" ColumnName="ogrNo" />
+                <ScalarProperty Name="ogrAdSoyad" ColumnName="ogrAdSoyad" />
+                <ScalarProperty Name="ogrDogTarih" ColumnName="ogrDogTarih" />
+                <ScalarProperty Name="ogrFoto" ColumnName="ogrFoto" />
+                <ScalarProperty Name="UyeId" ColumnName="UyeId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Dersler">
+            <EntityTypeMapping TypeName="DB02Model.Dersler">
+              <MappingFragment StoreEntitySet="Dersler">
+                <ScalarProperty Name="dersId" ColumnName="dersId" />
+                <ScalarProperty Name="dersKodu" ColumnName="dersKodu" />
+                <ScalarProperty Name="dersAdi" ColumnName="dersAdi" />
+                <ScalarProperty Name="dersKredi" ColumnName="dersKredi" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Kayit">
+            <EntityTypeMapping TypeName="DB02Model.Kayit">
+              <MappingFragment StoreEntitySet="Kayit">
+                <ScalarProperty Name="kayitId" ColumnName="kayitId" />
+                <ScalarProperty Name="kayitDersiAlanOgrId" ColumnName="kayitDersiAlanOgrId" />
+                <ScalarProperty Name="kayitDerslerId" ColumnName="kayitDerslerId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Soru">
+            <EntityTypeMapping TypeName="DB02Model.Soru">
+              <MappingFragment StoreEntitySet="Soru">
+                <ScalarProperty Name="SoruId" ColumnName="SoruId" />
+                <ScalarProperty Name="soru1" ColumnName="soru" />
+                <ScalarProperty Name="oA" ColumnName="oA" />
+                <ScalarProperty Name="oB" ColumnName="oB" />
+                <ScalarProperty Name="oC" ColumnName="oC" />
+                <ScalarProperty Name="oD" ColumnName="oD" />
+                <ScalarProperty Name="ans" ColumnName="ans" />
+                <ScalarProperty Name="UyeId" ColumnName="UyeId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Uye">
+            <EntityTypeMapping TypeName="DB02Model.Uye">
+              <MappingFragment StoreEntitySet="Uye">
+                <ScalarProperty Name="UyeId" ColumnName="UyeId" />
+                <ScalarProperty Name="KullaniciAdi" ColumnName="KullaniciAdi" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Sifre" ColumnName="Sifre" />
+                <ScalarProperty Name="AdSoyad" ColumnName="AdSoyad" />
+                <ScalarProperty Name="Foto" ColumnName="Foto" />
+                <ScalarProperty Name="AdminUye" ColumnName="AdminUye" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
